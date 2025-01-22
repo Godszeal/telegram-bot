@@ -1,5 +1,5 @@
 {
-  "botToken": "Bot_Token",
+  "botToken": "7666593246:AAFjAnUp8Y3eOWMf67KUJZwK4SImOXbER2w",
   "mongoURI": "MOngoDB_URI",
   "note": "Make sure to add your bot token and mongoURI from MongoDB and also respect author for their hardwork for this project by not changing code unnecessarily.",
   "prefix": "/",
@@ -11,8 +11,8 @@
   "owner": "5947023314",
   "onlyAdmin": false,
   "port": "3000",
-  "botName": "Yukai Bot",
-  "copyrightMark": "[ 🐉 | Yukai ]",
+  "botName": "EFKID BOT",
+  "copyrightMark": "[ ❄️ | EFKID BOT ]",
   "greetNewMembers": {
     "enabled": true,
     "gifUrl": "https://telegra.ph/file/0f328de5109569feceff3.gif"
