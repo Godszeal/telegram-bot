@@ -1,6 +1,6 @@
 {
   "botToken": "7666593246:AAFjAnUp8Y3eOWMf67KUJZwK4SImOXbER2w",
-  "mongoURI": "MOngoDB_URI",
+  "mongoURI": "mongodb+srv://mateochatbot:xdtL2bYQ9eV3CeXM@gerald.r2hjy.mongodb.net/nexusbot?retryWrites=true&w=majority",
   "note": "Make sure to add your bot token and mongoURI from MongoDB and also respect author for their hardwork for this project by not changing code unnecessarily.",
   "prefix": "/",
   "adminId": [
