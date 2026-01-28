@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 12 8% 8%;
+    --foreground: 0 0% 95%;
+    --card: 12 8% 15%;
+    --card-foreground: 0 0% 95%;
+    --muted: 12 8% 40%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 184 100% 50%;
+    --accent-foreground: 12 8% 8%;
+    --destructive: 0 84% 60%;
+    --input: 12 8% 20%;
+    --border: 12 8% 25%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent text-accent-foreground hover:bg-accent/90 px-4 py-2 rounded-md font-medium transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-card text-foreground hover:bg-card/80 px-4 py-2 rounded-md font-medium transition-colors border border-border;
+  }
+
+  .card-base {
+    @apply bg-card text-card-foreground rounded-lg border border-border p-6;
+  }
+
+  .input-base {
+    @apply w-full px-4 py-2 rounded-md border border-border bg-input text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent;
+  }
+}

@@ -1,15 +1,27 @@
 {
-  "name": "TeleBot-V2",
-  "version": "1.0.0",
-  "description": "A simple framework telegram bot project made by Samir Thakuri using telebot package",
+  "name": "telegram-bot-control-panel",
+  "version": "2.0.0",
+  "description": "Telegram Bot with Control Panel - Manage bot without redeployment",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js"
+    "bot": "node main.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "dev:all": "concurrently \"npm run bot\" \"npm run dev\""
   },
-  "keywords": [],
-  "author": "Samir Thakuri",
+  "keywords": ["telegram", "bot", "dashboard", "admin-panel"],
+  "author": "Your Name",
   "license": "ISC",
   "dependencies": {
+    "@vercel/postgres": "^0.7.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.1.0",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^3.4.0",
     "@zxing/library": "^0.21.3",
     "aptoide-scraper": "^1.0.1",
     "archiver": "^7.0.1",
@@ -31,7 +43,6 @@
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.1",
     "node-fetch": "^3.3.2",
-    "nodemon": "^3.1.3",
     "pngjs": "^7.0.0",
     "puppeteer": "^23.3.0",
     "qr-image": "^3.2.0",
@@ -44,5 +55,17 @@
     "tesseract.js": "^5.1.0",
     "yt-search": "^2.11.0",
     "ytdl-core": "^4.11.5"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.16",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.3",
+    "postcss": "^8.4.32",
+    "typescript": "^5.3.0"
   }
 }
