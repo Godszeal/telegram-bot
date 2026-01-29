@@ -38,14 +38,12 @@ export default function LoginPage() {
         return;
       }
 
-      console.log('[v0] Login successful, preparing redirect');
+      console.log('[v0] Login successful');
       setLoginSuccess(true);
       
-      // Wait a moment for cookie to be set, then redirect
-      setTimeout(() => {
-        console.log('[v0] Redirecting to dashboard');
-        router.push('/dashboard');
-      }, 500);
+      // Directly redirect to dashboard
+      console.log('[v0] Redirecting to dashboard');
+      router.replace('/dashboard');
       
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : 'An error occurred during login';

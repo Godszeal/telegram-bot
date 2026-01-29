@@ -9,10 +9,11 @@ import BotConnectionStatus from '@/components/dashboard/BotConnectionStatus';
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [authorized, setAuthorized] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [authorized, setAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     async function checkAuth() {
       try {
         console.log('[v0] Checking dashboard auth');
@@ -21,41 +22,43 @@ export default function DashboardPage() {
         });
         console.log('[v0] Auth check response:', response.status);
         
-        if (response.ok) {
-          console.log('[v0] User authorized, showing dashboard');
-          setAuthorized(true);
-        } else {
-          console.log('[v0] Auth check failed, redirecting to login');
-          router.push('/login');
+        if (isMounted) {
+          if (response.ok) {
+            console.log('[v0] User authorized, showing dashboard');
+            setAuthorized(true);
+          } else {
+            console.log('[v0] Auth check failed, redirecting to login');
+            router.replace('/login');
+          }
         }
       } catch (err) {
         console.error('[v0] Auth check error:', err);
-        router.push('/login');
-      } finally {
-        setLoading(false);
+        if (isMounted) {
+          router.replace('/login');
+        }
       }
     }
 
     checkAuth();
+
+    return () => {
+      isMounted = false;
+    };
   }, [router]);
 
-  if (loading) {
+  if (authorized === null) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-accent"></div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-accent mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading dashboard...</p>
+        </div>
       </div>
     );
   }
 
   if (!authorized) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-muted-foreground mb-4">Redirecting to login...</p>
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-accent mx-auto"></div>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (
