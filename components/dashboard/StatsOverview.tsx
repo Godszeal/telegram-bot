@@ -23,9 +23,24 @@ export default function StatsOverview() {
       if (response.ok) {
         const data = await response.json();
         setStats(data);
+      } else {
+        // Set default stats on error
+        setStats({
+          users: { total: 0, banned: 0, active: 0 },
+          commands: { total: 0, enabled: 0, disabled: 0 },
+          topCommands: [],
+          activity: [],
+        });
       }
     } catch (err) {
       console.error('Error fetching stats:', err);
+      // Set default stats on error
+      setStats({
+        users: { total: 0, banned: 0, active: 0 },
+        commands: { total: 0, enabled: 0, disabled: 0 },
+        topCommands: [],
+        activity: [],
+      });
     } finally {
       setLoading(false);
     }

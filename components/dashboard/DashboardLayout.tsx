@@ -6,9 +6,16 @@ import { useState } from 'react';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },
+  { name: 'Bot Setup', href: '/dashboard/bot-setup' },
+  { name: 'Bot Integration', href: '/dashboard/bot-integration' },
   { name: 'Configuration', href: '/dashboard/config' },
   { name: 'Users', href: '/dashboard/users' },
   { name: 'Commands', href: '/dashboard/commands' },
+  { name: 'Commands Manager', href: '/dashboard/commands-manager' },
+  { name: 'Analytics', href: '/dashboard/analytics' },
+  { name: 'Settings', href: '/dashboard/settings' },
+  { name: 'Guide', href: '/dashboard/guide' },
+  { name: 'Integration Guide', href: '/dashboard/integration-docs' },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

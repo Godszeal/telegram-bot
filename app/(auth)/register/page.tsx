@@ -55,7 +55,7 @@ export default function RegisterPage() {
       router.push('/login?registered=true');
     } catch (err) {
       setError('An error occurred during registration');
-      console.error(err);
+      console.error('[v0] Registration error:', err);
     } finally {
       setLoading(false);
     }
@@ -64,9 +64,9 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md card-base">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Create Account</h1>
-          <p className="text-muted-foreground">Register as an admin to manage your bot</p>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2">Create Account</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">Register as an admin to manage your bot</p>
         </div>
 
         <form onSubmit={handleRegister} className="space-y-4">
@@ -84,7 +84,7 @@ export default function RegisterPage() {
               value={formData.email}
               onChange={handleChange}
               placeholder="admin@example.com"
-              className="input-base"
+              className="input-base text-sm"
               required
               disabled={loading}
             />
@@ -98,7 +98,7 @@ export default function RegisterPage() {
               value={formData.password}
               onChange={handleChange}
               placeholder="••••••••"
-              className="input-base"
+              className="input-base text-sm"
               required
               disabled={loading}
             />
@@ -113,7 +113,7 @@ export default function RegisterPage() {
               value={formData.confirmPassword}
               onChange={handleChange}
               placeholder="••••••••"
-              className="input-base"
+              className="input-base text-sm"
               required
               disabled={loading}
             />
@@ -122,7 +122,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full btn-primary disabled:opacity-50"
+            className="w-full btn-primary disabled:opacity-50 text-sm sm:text-base"
           >
             {loading ? 'Creating account...' : 'Create Account'}
           </button>
@@ -131,7 +131,7 @@ export default function RegisterPage() {
         <div className="mt-6 pt-6 border-t border-border">
           <p className="text-sm text-muted-foreground">
             Already have an account?{' '}
-            <Link href="/login" className="text-accent hover:underline">
+            <Link href="/login" className="text-accent hover:underline font-medium">
               Sign in here
             </Link>
           </p>
