@@ -1,14 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import StatsOverview from '@/components/dashboard/StatsOverview';
 import BotStatus from '@/components/dashboard/BotStatus';
 import BotConnectionStatus from '@/components/dashboard/BotConnectionStatus';
 
 export default function DashboardPage() {
-  const router = useRouter();
   const [authorized, setAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -28,13 +26,13 @@ export default function DashboardPage() {
             setAuthorized(true);
           } else {
             console.log('[v0] Auth check failed, redirecting to login');
-            router.replace('/login');
+            window.location.href = '/login';
           }
         }
       } catch (err) {
         console.error('[v0] Auth check error:', err);
         if (isMounted) {
-          router.replace('/login');
+          window.location.href = '/login';
         }
       }
     }
@@ -44,7 +42,7 @@ export default function DashboardPage() {
     return () => {
       isMounted = false;
     };
-  }, [router]);
+  }, []);
 
   if (authorized === null) {
     return (

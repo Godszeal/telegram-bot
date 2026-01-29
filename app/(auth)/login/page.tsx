@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -10,13 +10,21 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+
+  // Handle redirect after login success
+  useEffect(() => {
+    if (shouldRedirect) {
+      console.log('[v0] Performing redirect to dashboard');
+      // Use window.location for more reliable redirect
+      window.location.href = '/dashboard';
+    }
+  }, [shouldRedirect]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setError('');
     setLoading(true);
-    setLoginSuccess(false);
 
     try {
       console.log('[v0] Attempting login with:', email);
@@ -38,12 +46,8 @@ export default function LoginPage() {
         return;
       }
 
-      console.log('[v0] Login successful');
-      setLoginSuccess(true);
-      
-      // Directly redirect to dashboard
-      console.log('[v0] Redirecting to dashboard');
-      router.replace('/dashboard');
+      console.log('[v0] Login successful, cookie should be set');
+      setShouldRedirect(true);
       
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : 'An error occurred during login';
@@ -53,7 +57,7 @@ export default function LoginPage() {
     }
   }
 
-  if (loginSuccess) {
+  if (shouldRedirect) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <div className="w-full max-w-md card-base text-center">
@@ -61,7 +65,7 @@ export default function LoginPage() {
             <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-3xl">✓</span>
             </div>
-            <h1 className="text-2xl font-bold mb-2">Welcome!</h1>
+            <h1 className="text-2xl font-bold mb-2">Success!</h1>
             <p className="text-muted-foreground">Redirecting to dashboard...</p>
           </div>
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-accent mx-auto mt-6"></div>
