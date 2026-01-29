@@ -32,9 +32,26 @@ export default function BotConnectionStatus() {
           admin_id: config.admin_id || '',
           bot_prefix: config.bot_prefix || '/',
         });
+      } else {
+        // Set default status if API fails
+        setStatus({
+          is_connected: false,
+          bot_name: 'Not configured',
+          bot_token: '',
+          admin_id: '',
+          bot_prefix: '/',
+        });
       }
     } catch (err) {
-      console.error('Failed to load bot status');
+      console.error('Failed to load bot status:', err);
+      // Set default status on error
+      setStatus({
+        is_connected: false,
+        bot_name: 'Not configured',
+        bot_token: '',
+        admin_id: '',
+        bot_prefix: '/',
+      });
     } finally {
       setLoading(false);
     }

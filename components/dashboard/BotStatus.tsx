@@ -23,9 +23,22 @@ export default function BotStatus() {
       if (response.ok) {
         const data = await response.json();
         setConfig(data);
+      } else {
+        setConfig({
+          bot_token: '',
+          bot_prefix: '/',
+          bot_name: 'MyBot',
+          admin_id: '',
+        });
       }
     } catch (err) {
       console.error('Error fetching config:', err);
+      setConfig({
+        bot_token: '',
+        bot_prefix: '/',
+        bot_name: 'MyBot',
+        admin_id: '',
+      });
     } finally {
       setLoading(false);
     }

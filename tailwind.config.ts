@@ -13,6 +13,7 @@ const config: Config = {
         foreground: 'hsl(var(--foreground))',
         card: 'hsl(var(--card))',
         'card-foreground': 'hsl(var(--card-foreground))',
+        secondary: 'hsl(var(--secondary))',
         muted: 'hsl(var(--muted))',
         'muted-foreground': 'hsl(var(--muted-foreground))',
         accent: 'hsl(var(--accent))',
