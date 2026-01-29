@@ -15,14 +15,21 @@ export default function DashboardPage() {
   useEffect(() => {
     async function checkAuth() {
       try {
-        const response = await fetch('/api/auth/check');
+        console.log('[v0] Checking dashboard auth');
+        const response = await fetch('/api/auth/check', {
+          credentials: 'include',
+        });
+        console.log('[v0] Auth check response:', response.status);
+        
         if (response.ok) {
+          console.log('[v0] User authorized, showing dashboard');
           setAuthorized(true);
         } else {
+          console.log('[v0] Auth check failed, redirecting to login');
           router.push('/login');
         }
       } catch (err) {
-        console.error('Auth check failed:', err);
+        console.error('[v0] Auth check error:', err);
         router.push('/login');
       } finally {
         setLoading(false);
@@ -40,7 +47,16 @@ export default function DashboardPage() {
     );
   }
 
-  if (!authorized) return null;
+  if (!authorized) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-muted-foreground mb-4">Redirecting to login...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-accent mx-auto"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <DashboardLayout>

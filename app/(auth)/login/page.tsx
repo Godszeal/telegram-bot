@@ -10,11 +10,13 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setError('');
     setLoading(true);
+    setLoginSuccess(false);
 
     try {
       console.log('[v0] Attempting login with:', email);
@@ -22,6 +24,7 @@ export default function LoginPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
+        credentials: 'include',
       });
 
       console.log('[v0] Response status:', response.status);
@@ -31,18 +34,42 @@ export default function LoginPage() {
       if (!response.ok) {
         setError(data.error || 'Login failed');
         console.log('[v0] Login failed:', data.error);
+        setLoading(false);
         return;
       }
 
-      console.log('[v0] Login successful, redirecting to dashboard');
-      router.push('/dashboard');
+      console.log('[v0] Login successful, preparing redirect');
+      setLoginSuccess(true);
+      
+      // Wait a moment for cookie to be set, then redirect
+      setTimeout(() => {
+        console.log('[v0] Redirecting to dashboard');
+        router.push('/dashboard');
+      }, 500);
+      
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : 'An error occurred during login';
       setError(errorMsg);
       console.error('[v0] Login error:', err);
-    } finally {
       setLoading(false);
     }
+  }
+
+  if (loginSuccess) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="w-full max-w-md card-base text-center">
+          <div className="mb-4">
+            <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-3xl">✓</span>
+            </div>
+            <h1 className="text-2xl font-bold mb-2">Welcome!</h1>
+            <p className="text-muted-foreground">Redirecting to dashboard...</p>
+          </div>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-accent mx-auto mt-6"></div>
+        </div>
+      </div>
+    );
   }
 
   return (
