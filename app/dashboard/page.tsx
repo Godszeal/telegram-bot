@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import StatsOverview from '@/components/dashboard/StatsOverview';
 import BotStatus from '@/components/dashboard/BotStatus';
+import BotConnectionStatus from '@/components/dashboard/BotConnectionStatus';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -49,6 +50,7 @@ export default function DashboardPage() {
           <p className="text-muted-foreground mt-1">Welcome to your bot control panel</p>
         </div>
 
+        <BotConnectionStatus />
         <StatsOverview />
         <BotStatus />
       </div>
