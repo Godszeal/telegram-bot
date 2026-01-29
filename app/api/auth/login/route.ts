@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
 
     // Find user
     const result = await sql`
-      SELECT id, email, password_hash FROM admins WHERE email = ${email}
+      SELECT id, username, password_hash FROM admin_users WHERE username = ${email}
     `;
 
     if (result.rows.length === 0) {
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
 
     // Create JWT token
     const token = jwt.sign(
-      { id: user.id, email: user.email },
+      { id: user.id, username: user.username },
       JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(
-      { message: 'Login successful', user: { id: user.id, email: user.email } },
+      { message: 'Login successful', user: { id: user.id, username: user.username } },
       { status: 200 }
     );
   } catch (error) {

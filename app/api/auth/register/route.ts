@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     // Check if user already exists
     const existingUser = await sql`
-      SELECT id FROM admins WHERE email = ${email}
+      SELECT id FROM admin_users WHERE username = ${email}
     `;
 
     if (existingUser.rows.length > 0) {
@@ -29,15 +29,15 @@ export async function POST(request: NextRequest) {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
+    // Create user with a placeholder user_id
     const result = await sql`
-      INSERT INTO admins (email, password_hash, created_at)
-      VALUES (${email}, ${hashedPassword}, NOW())
-      RETURNING id, email
+      INSERT INTO admin_users (user_id, username, password_hash, created_at)
+      VALUES (${Date.now()}, ${email}, ${hashedPassword}, NOW())
+      RETURNING id, username
     `;
 
     return NextResponse.json(
-      { message: 'Account created successfully', user: result.rows[0] },
+      { message: 'Account created successfully', user: { id: result.rows[0].id, username: result.rows[0].username } },
       { status: 201 }
     );
   } catch (error) {
