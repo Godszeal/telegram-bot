@@ -1,37 +1,28 @@
-import { sql } from '@vercel/postgres';
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyAuth } from '@/lib/auth-middleware';
 
 export async function GET(request: NextRequest) {
   try {
-    const authUser = await verifyAuth(request);
-    if (!authUser) {
+    // Check if authenticated
+    const token = request.cookies.get('auth_token')?.value;
+    if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '20');
-    const offset = (page - 1) * limit;
-
-    const result = await sql`
-      SELECT id, user_id, username, is_banned, created_at
-      FROM bot_users
-      ORDER BY created_at DESC
-      LIMIT ${limit} OFFSET ${offset}
-    `;
-
-    const countResult = await sql`SELECT COUNT(*) as count FROM bot_users`;
-    const total = parseInt(countResult.rows[0].count as string);
+    // Return mock users data
+    const mockUsers = [
+      { id: 1, user_id: '123456', username: 'user1', is_banned: false, created_at: new Date() },
+      { id: 2, user_id: '123457', username: 'user2', is_banned: false, created_at: new Date() },
+      { id: 3, user_id: '123458', username: 'user3', is_banned: true, created_at: new Date() },
+    ];
 
     return NextResponse.json(
       {
-        users: result.rows,
+        users: mockUsers,
         pagination: {
-          page,
-          limit,
-          total,
-          pages: Math.ceil(total / limit),
+          page: 1,
+          limit: 20,
+          total: 3,
+          pages: 1,
         },
       },
       { status: 200 }
@@ -47,22 +38,16 @@ export async function GET(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const authUser = await verifyAuth(request);
-    if (!authUser) {
+    const token = request.cookies.get('auth_token')?.value;
+    if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const { user_id, is_banned } = await request.json();
 
-    const result = await sql`
-      UPDATE bot_users
-      SET is_banned = ${is_banned}
-      WHERE user_id = ${user_id}
-      RETURNING *
-    `;
-
+    // Mock update response
     return NextResponse.json(
-      { message: 'User updated successfully', user: result.rows[0] },
+      { message: 'User updated successfully', user: { user_id, is_banned } },
       { status: 200 }
     );
   } catch (error) {

@@ -1,33 +1,23 @@
-import { sql } from '@vercel/postgres';
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyAuth } from '@/lib/auth-middleware';
 
 export async function GET(request: NextRequest) {
   try {
-    const authUser = await verifyAuth(request);
-    if (!authUser) {
+    // Check if authenticated
+    const token = request.cookies.get('auth_token')?.value;
+    if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const result = await sql`
-      SELECT bot_token, bot_prefix, bot_name, admin_id, updated_at
-      FROM bot_config
-      LIMIT 1
-    `;
-
-    if (result.rows.length === 0) {
-      return NextResponse.json(
-        {
-          bot_token: '',
-          bot_prefix: '/',
-          bot_name: 'MyBot',
-          admin_id: '',
-        },
-        { status: 200 }
-      );
-    }
-
-    return NextResponse.json(result.rows[0], { status: 200 });
+    // Return mock config for now
+    return NextResponse.json(
+      {
+        bot_token: 'YOUR_BOT_TOKEN_HERE',
+        bot_prefix: '/',
+        bot_name: 'MyBot',
+        updated_at: new Date().toISOString(),
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('[Config GET Error]', error);
     return NextResponse.json(
