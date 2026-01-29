@@ -10,6 +10,9 @@ const navigation = [
   { name: 'Configuration', href: '/dashboard/config' },
   { name: 'Users', href: '/dashboard/users' },
   { name: 'Commands', href: '/dashboard/commands' },
+  { name: 'Analytics', href: '/dashboard/analytics' },
+  { name: 'Settings', href: '/dashboard/settings' },
+  { name: 'Guide', href: '/dashboard/guide' },
   { name: 'Integration Guide', href: '/dashboard/integration-docs' },
 ];
 

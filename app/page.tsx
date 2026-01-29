@@ -36,26 +36,26 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary">
+    <div className="min-h-screen bg-gradient-to-br from-background to-secondary flex flex-col">
       {/* Header */}
-      <header className="border-b border-border/40">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center">
+      <header className="border-b border-border/40 sticky top-0 z-50 bg-background/95 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="w-10 h-10 rounded-lg bg-accent flex-shrink-0 flex items-center justify-center">
               <span className="text-white font-bold text-lg">🤖</span>
             </div>
-            <h1 className="text-2xl font-bold">Telegram Bot Manager</h1>
+            <h1 className="text-lg sm:text-2xl font-bold truncate">Bot Manager</h1>
           </div>
-          <nav className="flex gap-4">
+          <nav className="flex gap-2 sm:gap-4 flex-shrink-0">
             <button
               onClick={() => router.push('/login')}
-              className="px-4 py-2 text-foreground hover:text-accent transition"
+              className="px-3 sm:px-4 py-2 text-sm sm:text-base text-foreground hover:text-accent transition"
             >
               Login
             </button>
             <button
               onClick={() => router.push('/register')}
-              className="px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition"
+              className="px-3 sm:px-4 py-2 text-sm sm:text-base bg-accent text-white rounded-lg hover:bg-accent/90 transition"
             >
               Sign Up
             </button>
@@ -63,145 +63,101 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <main>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Hero */}
-          <div className="py-20 text-center">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
-              Manage Your Telegram Bot<br />
+      {/* Main Content */}
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+          <div className="text-center">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-foreground leading-tight">
+              Manage Your Telegram Bot<br className="hidden sm:block" />
               <span className="text-accent">Without Redeployment</span>
             </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Control your Telegram bot from a modern dashboard. Update configuration, manage users, enable/disable commands, and track statistics in real-time.
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-2xl mx-auto px-2">
+              Control your bot from a modern dashboard. Update configuration, manage users, monitor commands, and track statistics in real-time.
             </p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <button
                 onClick={() => router.push('/register')}
-                className="px-8 py-3 bg-accent text-white rounded-lg hover:bg-accent/90 transition font-medium"
+                className="px-6 sm:px-8 py-2.5 sm:py-3 bg-accent text-white rounded-lg hover:bg-accent/90 transition font-medium text-sm sm:text-base w-full sm:w-auto"
               >
                 Get Started
               </button>
               <button
                 onClick={() => router.push('/login')}
-                className="px-8 py-3 border border-border rounded-lg hover:bg-secondary transition font-medium"
+                className="px-6 sm:px-8 py-2.5 sm:py-3 border border-border rounded-lg hover:bg-secondary transition font-medium text-sm sm:text-base w-full sm:w-auto"
               >
                 Login
               </button>
             </div>
           </div>
+        </section>
 
-          {/* Features Grid */}
-          <div className="py-16 grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-            <div className="p-6 rounded-lg border border-border/40 bg-card hover:border-accent/50 transition">
-              <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl">⚙️</span>
+        {/* Features Grid */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Key Features</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {[
+              { icon: '⚙️', title: 'Live Configuration', desc: 'Update bot settings instantly without redeployment' },
+              { icon: '👥', title: 'User Management', desc: 'View users, track activity, ban/unban, monitor metrics' },
+              { icon: '📊', title: 'Analytics & Stats', desc: 'Real-time insights into bot performance and usage' },
+              { icon: '🔐', title: 'Secure Admin Panel', desc: 'JWT authentication with bcrypt password hashing' },
+              { icon: '⚡', title: 'Command Control', desc: 'Enable, disable, monitor commands dynamically' },
+              { icon: '🚀', title: 'Easy Integration', desc: 'Simple API endpoints for your existing bot' },
+            ].map((feature, idx) => (
+              <div key={idx} className="p-4 sm:p-6 rounded-lg border border-border/40 bg-card hover:border-accent/50 transition">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                  <span className="text-xl sm:text-2xl">{feature.icon}</span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">{feature.title}</h3>
+                <p className="text-sm sm:text-base text-muted-foreground">{feature.desc}</p>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Live Configuration</h3>
-              <p className="text-muted-foreground">
-                Update bot settings instantly without restarting or redeploying your application.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-lg border border-border/40 bg-card hover:border-accent/50 transition">
-              <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl">👥</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">User Management</h3>
-              <p className="text-muted-foreground">
-                View all users, track activity, ban/unban users, and monitor engagement metrics.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-lg border border-border/40 bg-card hover:border-accent/50 transition">
-              <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl">📊</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Analytics & Stats</h3>
-              <p className="text-muted-foreground">
-                Get real-time insights into bot performance, command usage, and user statistics.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-lg border border-border/40 bg-card hover:border-accent/50 transition">
-              <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl">🔐</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Secure Admin Panel</h3>
-              <p className="text-muted-foreground">
-                JWT-based authentication with bcrypt password hashing for maximum security.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-lg border border-border/40 bg-card hover:border-accent/50 transition">
-              <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl">⚡</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Command Control</h3>
-              <p className="text-muted-foreground">
-                Enable, disable, and monitor commands dynamically. Track usage and performance.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-lg border border-border/40 bg-card hover:border-accent/50 transition">
-              <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl">🚀</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Easy Integration</h3>
-              <p className="text-muted-foreground">
-                Simple API endpoints and database queries to integrate with your existing bot.
-              </p>
-            </div>
+            ))}
           </div>
+        </section>
 
-          {/* Bot Connection Steps */}
-          <div className="py-16 mb-20">
-            <h2 className="text-3xl font-bold text-center mb-12">How to Connect Your Bot</h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">1</div>
-                <h4 className="font-semibold mb-2">Create Account</h4>
-                <p className="text-muted-foreground text-sm">Sign up for an admin account to manage your bot</p>
+        {/* Steps Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">How to Connect Your Bot</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {[
+              { num: '1', title: 'Create Account', desc: 'Sign up for an admin account' },
+              { num: '2', title: 'Add Bot Token', desc: 'Enter your Telegram bot token' },
+              { num: '3', title: 'Configure', desc: 'Set up bot preferences and settings' },
+              { num: '4', title: 'Start Managing', desc: 'Control everything from dashboard' },
+            ].map((step, idx) => (
+              <div key={idx} className="text-center">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 font-bold text-lg sm:text-xl">
+                  {step.num}
+                </div>
+                <h4 className="font-semibold mb-2 text-base sm:text-lg">{step.title}</h4>
+                <p className="text-xs sm:text-sm text-muted-foreground">{step.desc}</p>
               </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">2</div>
-                <h4 className="font-semibold mb-2">Add Bot Token</h4>
-                <p className="text-muted-foreground text-sm">Enter your Telegram bot token in the configuration page</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">3</div>
-                <h4 className="font-semibold mb-2">Integrate Database</h4>
-                <p className="text-muted-foreground text-sm">Connect your bot to read config from the database</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">4</div>
-                <h4 className="font-semibold mb-2">Start Managing</h4>
-                <p className="text-muted-foreground text-sm">Control everything from the dashboard instantly</p>
-              </div>
-            </div>
+            ))}
           </div>
+        </section>
 
-          {/* CTA */}
-          <div className="py-16 px-8 rounded-2xl border border-accent/30 bg-accent/5 text-center mb-20">
-            <h3 className="text-2xl font-bold mb-4">Ready to Transform Your Bot Management?</h3>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
+        {/* CTA Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 pb-16 sm:pb-20">
+          <div className="py-8 sm:py-12 px-4 sm:px-8 rounded-2xl border border-accent/30 bg-accent/5 text-center">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Ready to Get Started?</h3>
+            <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8 max-w-xl mx-auto">
               Start managing your Telegram bot smarter and faster. No more redeployments needed.
             </p>
             <button
               onClick={() => router.push('/register')}
-              className="px-8 py-3 bg-accent text-white rounded-lg hover:bg-accent/90 transition font-medium"
+              className="px-6 sm:px-8 py-2.5 sm:py-3 bg-accent text-white rounded-lg hover:bg-accent/90 transition font-medium text-sm sm:text-base w-full sm:w-auto"
             >
               Create Free Account
             </button>
           </div>
-        </div>
+        </section>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border/40 py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-muted-foreground">
-            © 2024 Telegram Bot Manager. All rights reserved.
+      <footer className="border-t border-border/40 bg-background/50 py-6 sm:py-8 mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-xs sm:text-sm text-muted-foreground">
+            © 2026 Telegram Bot Manager. All rights reserved.
           </p>
         </div>
       </footer>
